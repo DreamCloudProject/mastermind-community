@@ -19,7 +19,7 @@ This is simple application which demonstrates basic functionality. It can be use
 
 [http://localost:5000/admin/index.html](http://localost:5000/admin/index.html "Starter Application Main Page")
 
-######Credentials
+###### Credentials
  - **User:** `admin`
  - **Password** `admin`
 
