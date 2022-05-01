@@ -1,0 +1,49 @@
+version: "${TAG}"
+networks:
+  msm-network:
+    driver: bridge
+services:
+  mongodb:
+    image: mongo:4.2
+    container_name: mongodb
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand({serverStatus:1}).ok' | mongo admin -u ${MONGO_INITDB_ROOT_USERNAME} -p ${MONGO_INITDB_ROOT_PASSWORD} --quiet | grep 1
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    ports:
+      - 27018:27017
+    volumes:
+      - ~/MSM2/data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=admin
+    networks:
+      - msm-network
+  mastermindcms:
+    image: mastermindcms/community:${TAG}
+    container_name: mastermindcms
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VERSION: "${TAG}"
+        MONGODB_HOST: mongodb
+        MONGODB_PORT: 27017
+    ports:
+      - 5001:5000
+    volumes:
+      - ${WORKING_DIR}/www:/MSM2/www
+      - ${WORKING_DIR}/files:/MSM2/files
+      - ${WORKING_DIR}/config:/MSM2/config
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    links:
+      - mongodb
+    networks:
+      - msm-network

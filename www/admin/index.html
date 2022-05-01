@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:msm="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Bare - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <!-- START: code to be injected -->
+    <script src="https://cdn.jsdelivr.net/npm/text-encoding@0.6.4/lib/encoding.min.js"></script>
+    <script src="/msm2.bundle.js"></script>
+    <script>
+            let app = new MSM2.App();
+    </script>
+    <!-- END: code to be injected -->
+</head>
+<body>
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="/admin/logout">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page content-->
+<div class="container">
+    <div class="text-center mt-5">
+        <h1>A Bootstrap 5 Starter Template</h1>
+        <p class="lead">A complete project boilerplate built with Bootstrap</p>
+        <p>Bootstrap v5.1.0</p>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="inputFirstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <label for="inputLastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" name="status" value="false" id="checkStatus">
+            <label class="form-check-label" for="checkStatus">Check me out</label>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="app.addDocumentAndRender('foo','custom-users',this)">Submit</button>
+    </form>
+    <section class="pt-4">
+        <div class="container px-lg-5">
+            <!-- Page Features-->
+            <div id="userListWrapper" class="row gx-lg-5">
+                <msm:foreach id="userList" database="foo" collection="custom-users" filter="{}" mode="DATABASE" item-name="user">
+                    <msm:empty>
+                        <p>No users</p>
+                    </msm:empty>
+                    <msm:template>
+                        <div class="col-lg-6 col-xxl-4 mb-5">
+                            <div class="card bg-light border-0 h-100">
+                                <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                                    <h2 class="fs-4 fw-bold">${user|firstName} ${user|lastName}</h2>
+                                    <p class="mb-0">${user|_id}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </msm:template>
+                </msm:foreach>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
