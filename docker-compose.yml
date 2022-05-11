@@ -1,11 +1,11 @@
 version: "${TAG}"
 networks:
-  msm-network:
+  msm-network-community:
     driver: bridge
 services:
-  mongodb:
+  mongodb-msm2-community:
     image: mongo:4.2
-    container_name: mongodb
+    container_name: mongodb-msm2-community
     restart: always
     healthcheck:
       test: echo 'db.runCommand({serverStatus:1}).ok' | mongo admin -u ${MONGO_INITDB_ROOT_USERNAME} -p ${MONGO_INITDB_ROOT_PASSWORD} --quiet | grep 1
@@ -16,16 +16,16 @@ services:
     ports:
       - 27018:27017
     volumes:
-      - ~/MSM2/data:/data/db
+      - ${WORKING_DIR}/data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - MONGO_INITDB_DATABASE=admin
     networks:
-      - msm-network
-  mastermindcms:
+      - msm-network-community
+  mastermindcms-community:
     image: mastermindcms/community:${TAG}
-    container_name: mastermindcms
+    container_name: mastermindcms-community
     restart: always
     build:
       context: .
@@ -41,9 +41,9 @@ services:
       - ${WORKING_DIR}/files:/MSM2/files
       - ${WORKING_DIR}/config:/MSM2/config
     depends_on:
-      mongodb:
+      mongodb-msm2-community:
         condition: service_healthy
     links:
-      - mongodb
+      - mongodb-msm2-community
     networks:
-      - msm-network
+      - msm-network-community

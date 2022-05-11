@@ -7,7 +7,7 @@ LABEL maintainer="Alexander Yanchin <ayanchin85@gmail.com>"
 
 RUN yum -y install wget &&\
     yum -y install java-11-openjdk &&\
-    wget --no-check-certificate -q -O msm2-application-community.tar.gz https://mastermindcms.co/cdn/msm2-application-$VERSION-community.tar.gz &&\
+    wget --no-check-certificate -O msm2-application-community.tar.gz https://mastermindcms.co/cdn/msm2-application-$VERSION-community.tar.gz &&\
     tar -xf msm2-application-community.tar.gz -C / &&\
     rm msm2-application-community.tar.gz &&\
     sed -i -e "s/spring.data.mongodb.host=127.0.0.1/spring.data.mongodb.host=$MONGODB_HOST/g" -e "s/spring.data.mongodb.port=27017/spring.data.mongodb.port=$MONGODB_PORT/g" /MSM2/config/common-production.properties &&\
