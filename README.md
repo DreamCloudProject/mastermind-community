@@ -4,7 +4,7 @@
 
 1. Use the docker compose to install MastermindCMS2:
 ```
-docker-compose up
+docker compose up
 ```
 
 ## Usage
