@@ -4,7 +4,7 @@ networks:
     driver: bridge
 services:
   mongodb-msm2-community:
-    image: mongo:4.2
+    image: mongo:4.4
     container_name: mongodb-msm2-community
     restart: always
     healthcheck:
